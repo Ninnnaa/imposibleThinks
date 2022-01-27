@@ -1,1 +1,8 @@
-<p>home works!</p>
+<div *ngFor="let zone of zones; let i = index">
+  <p>Zona {{i+1}}</p>
+  <ng-container *ngFor="let table of tablesList">
+    <ng-container *ngIf="zone === table.areaId">
+        <app-card [value]="table.sku"></app-card>
+    </ng-container>
+  </ng-container>
+</div>

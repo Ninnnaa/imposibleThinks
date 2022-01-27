@@ -10,6 +10,8 @@ import { TableInterface } from '../../interfaces/table-interface';
 export class HomeComponent implements OnInit {
 
   tablesList: TableInterface[] = [];
+  zones: number[] = [];
+  sortedTables: Array<TableInterface[]> = [];
 
   constructor(
     private readonly tablesService: TablesService
@@ -17,7 +19,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.tablesService.getTablesList().subscribe(tables => {
-      this.tablesList = tables;
+      this.tablesList = tables.sort((a,b) => a.areaId - b.areaId);
+      tables.forEach(table => {
+       if (!this.zones.includes(table.areaId)) {
+         this.zones.push(table.areaId)
+       }
+      })
     })
-  }
+}
 }
